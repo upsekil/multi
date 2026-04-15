@@ -156,69 +156,79 @@
 
                 <div class="flex-1 overflow-y-auto p-4 md:p-8 scroll-smooth" id="mainScrollArea">
                     
-                    <!-- ================= DASHBOARD ENTERPRISE ================= -->
+                    <!-- ================= DASHBOARD ================= -->
                     <div v-if="currentTab === 'dashboard'" class="space-y-6 animate-fade-in">
                         <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 relative overflow-hidden">
                             <div class="absolute right-0 top-0 w-64 h-64 bg-indigo-50 rounded-bl-full opacity-50 -z-10"></div>
-                            <h2 class="text-3xl font-extrabold text-slate-800 mb-2">Dashboard Eksekutif, {{ user.nama }}! 👋</h2>
-                            <p class="text-slate-500 font-medium">Ringkasan aktivitas inventaris, sirkulasi barang, dan peminjaman.</p>
+                            <h2 class="text-3xl font-extrabold text-slate-800 mb-2">Selamat Datang, {{ user.nama }}! 👋</h2>
+                            <p class="text-slate-500 font-medium">{{ user.role === 'superadmin' ? 'Ringkasan aktivitas inventaris, sirkulasi barang, dan peminjaman.' : 'Pantau aktivitas pinjaman Anda dan ajukan barang baru.' }}</p>
                         </div>
                         
-                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-                            <!-- Card 1 -->
+                        <!-- STATS ADMIN -->
+                        <div v-if="user.role === 'superadmin'" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
                             <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
                                 <div class="flex items-center gap-3 mb-3 text-indigo-600"><i class="fas fa-boxes bg-indigo-50 p-3 rounded-xl"></i> <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Model Barang</p></div>
                                 <p class="text-3xl font-extrabold text-slate-800">{{ stats.totalModels }}</p>
                             </div>
-                            <!-- Card 2 -->
                             <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
                                 <div class="flex items-center gap-3 mb-3 text-indigo-600"><i class="fas fa-cubes bg-indigo-50 p-3 rounded-xl"></i> <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Total Fisik Item</p></div>
                                 <p class="text-3xl font-extrabold text-slate-800">{{ stats.totalItems }}</p>
                             </div>
-                            <!-- Card 3 -->
                             <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
                                 <div class="flex items-center gap-3 mb-3 text-emerald-600"><i class="fas fa-arrow-down bg-emerald-50 p-3 rounded-xl"></i> <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Total Brg Masuk</p></div>
                                 <p class="text-3xl font-extrabold text-slate-800">{{ stats.totalInboundQty }}</p>
                             </div>
-                            <!-- Card 4 -->
                             <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
                                 <div class="flex items-center gap-3 mb-3 text-rose-600"><i class="fas fa-arrow-up bg-rose-50 p-3 rounded-xl"></i> <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Total Brg Keluar</p></div>
                                 <p class="text-3xl font-extrabold text-slate-800">{{ stats.totalOutboundQty }}</p>
                             </div>
-                            <!-- Card 5 -->
                             <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
                                 <div class="flex items-center gap-3 mb-3 text-blue-600"><i class="fas fa-users bg-blue-50 p-3 rounded-xl"></i> <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Pengguna</p></div>
                                 <p class="text-3xl font-extrabold text-slate-800">{{ stats.totalUsers }}</p>
                             </div>
-                            <!-- Card 6 -->
-                            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
-                                <div class="flex items-center gap-3 mb-3 text-purple-600"><i class="fas fa-truck bg-purple-50 p-3 rounded-xl"></i> <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Supplier</p></div>
-                                <p class="text-3xl font-extrabold text-slate-800">{{ stats.totalSuppliers }}</p>
-                            </div>
-                            <!-- Card 7 -->
                             <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
                                 <div class="flex items-center gap-3 mb-3 text-amber-600"><i class="fas fa-exchange-alt bg-amber-50 p-3 rounded-xl"></i> <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Semua Pinjaman</p></div>
                                 <p class="text-3xl font-extrabold text-slate-800">{{ stats.totalLoans }}</p>
                             </div>
-                            <!-- Card 8 -->
                             <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
                                 <div class="flex items-center gap-3 mb-3 text-orange-600"><i class="fas fa-hand-holding bg-orange-50 p-3 rounded-xl"></i> <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Belum Kembali</p></div>
                                 <p class="text-3xl font-extrabold text-slate-800">{{ stats.loansActive }}</p>
                             </div>
-                            <!-- Card 9 -->
                             <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
-                                <div class="flex items-center gap-3 mb-3 text-emerald-600"><i class="fas fa-check-circle bg-emerald-50 p-3 rounded-xl"></i> <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Sdh Dikembalikan</p></div>
-                                <p class="text-3xl font-extrabold text-slate-800">{{ stats.loansReturned }}</p>
+                                <div class="flex items-center gap-3 mb-3 text-teal-600"><i class="fas fa-lightbulb bg-teal-50 p-3 rounded-xl"></i> <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Usulan User</p></div>
+                                <p class="text-3xl font-extrabold text-slate-800">{{ wishlists.length }}</p>
                             </div>
-                            <!-- Card 10 -->
-                            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
-                                <div class="flex items-center gap-3 mb-3 text-emerald-600"><i class="fas fa-file-import bg-emerald-50 p-3 rounded-xl"></i> <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Trx Masuk</p></div>
-                                <p class="text-3xl font-extrabold text-slate-800">{{ stats.trxInbound }}</p>
+                        </div>
+
+                        <!-- STATS USER (MAHASISWA/DOSEN) -->
+                        <div v-else class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                                <div class="flex items-center gap-4 mb-4">
+                                    <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl shadow-sm"><i class="fas fa-file-signature"></i></div>
+                                    <p class="text-sm text-slate-500 font-bold uppercase tracking-wider">Total Pinjaman</p>
+                                </div>
+                                <p class="text-4xl font-extrabold text-slate-800">{{ loans.length }}</p>
                             </div>
-                            <!-- Card 11 -->
-                            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
-                                <div class="flex items-center gap-3 mb-3 text-rose-600"><i class="fas fa-file-export bg-rose-50 p-3 rounded-xl"></i> <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Trx Keluar</p></div>
-                                <p class="text-3xl font-extrabold text-slate-800">{{ stats.trxOutbound }}</p>
+                            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                                <div class="flex items-center gap-4 mb-4">
+                                    <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl shadow-sm"><i class="fas fa-hand-holding"></i></div>
+                                    <p class="text-sm text-slate-500 font-bold uppercase tracking-wider">Aktif / Belum Kembali</p>
+                                </div>
+                                <p class="text-4xl font-extrabold text-slate-800">{{ loans.filter(l => l.Status === 'dipinjam').length }}</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                                <div class="flex items-center gap-4 mb-4">
+                                    <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shadow-sm"><i class="fas fa-check-circle"></i></div>
+                                    <p class="text-sm text-slate-500 font-bold uppercase tracking-wider">Selesai</p>
+                                </div>
+                                <p class="text-4xl font-extrabold text-slate-800">{{ loans.filter(l => l.Status === 'dikembalikan').length }}</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer" @click="changeTab('wishlists')">
+                                <div class="flex items-center gap-4 mb-4">
+                                    <div class="w-12 h-12 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center text-xl shadow-sm"><i class="fas fa-lightbulb"></i></div>
+                                    <p class="text-sm text-slate-500 font-bold uppercase tracking-wider">Usulan Saya</p>
+                                </div>
+                                <p class="text-4xl font-extrabold text-slate-800">{{ myWishlists.length }}</p>
                             </div>
                         </div>
                     </div>
@@ -292,6 +302,55 @@
                                     </button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- ================= WISHLIST (USULAN) ================= -->
+                    <div v-if="currentTab === 'wishlists'" class="space-y-6">
+                        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex justify-between items-center">
+                            <div>
+                                <h2 class="text-2xl font-extrabold text-slate-800">{{ user.role === 'superadmin' ? 'Daftar Usulan Barang' : 'Usulan Barang (Wishlist)' }}</h2>
+                                <p class="text-sm text-slate-500 font-medium">{{ user.role === 'superadmin' ? 'Tinjau usulan alat/bahan dari user.' : 'Ajukan alat/bahan yang belum ada di katalog.' }}</p>
+                            </div>
+                            <button v-if="user.role !== 'superadmin'" @click="openWishlistModal()" class="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow-sm transition"><i class="fas fa-plus mr-2"></i> Buat Usulan</button>
+                        </div>
+                        
+                        <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+                            <table class="w-full text-left border-collapse whitespace-nowrap">
+                                <thead class="bg-slate-50 text-slate-500 text-[11px] font-bold uppercase border-b border-slate-100">
+                                    <tr>
+                                        <th class="p-4">Tanggal</th>
+                                        <th v-if="user.role === 'superadmin'" class="p-4">Pengusul</th>
+                                        <th class="p-4">Nama Barang (Kategori)</th>
+                                        <th class="p-4">Est. Qty</th>
+                                        <th class="p-4">Alasan/Kegunaan</th>
+                                        <th class="p-4 text-center">Status</th>
+                                        <th v-if="user.role === 'superadmin'" class="p-4 text-center">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-sm text-slate-700 divide-y divide-slate-50">
+                                    <tr v-for="w in (user.role === 'superadmin' ? wishlists : myWishlists)" :key="w.id" class="hover:bg-slate-50">
+                                        <td class="p-4">{{ formatDate(w.date) }}</td>
+                                        <td v-if="user.role === 'superadmin'" class="p-4 font-bold">{{ w.userName }}</td>
+                                        <td class="p-4 font-bold">{{ w.itemName }} <span class="text-xs font-normal text-slate-400 block">{{ w.category }}</span></td>
+                                        <td class="p-4 text-center font-black">{{ w.qty }}</td>
+                                        <td class="p-4 whitespace-normal min-w-[200px] text-xs">{{ w.purpose }}</td>
+                                        <td class="p-4 text-center">
+                                            <span v-if="w.status === 'pending'" class="bg-amber-50 text-amber-600 px-3 py-1 rounded-md text-[10px] font-extrabold uppercase border border-amber-200">Menunggu</span>
+                                            <span v-else-if="w.status === 'approved'" class="bg-emerald-50 text-emerald-600 px-3 py-1 rounded-md text-[10px] font-extrabold uppercase border border-emerald-200">Disetujui / Dibeli</span>
+                                            <span v-else class="bg-rose-50 text-rose-600 px-3 py-1 rounded-md text-[10px] font-extrabold uppercase border border-rose-200">Ditolak</span>
+                                        </td>
+                                        <td v-if="user.role === 'superadmin'" class="p-4 text-center">
+                                            <div v-if="w.status === 'pending'" class="flex gap-2 justify-center">
+                                                <button @click="updateWishlist(w.id, 'approved')" class="bg-emerald-100 hover:bg-emerald-200 text-emerald-700 p-2 rounded-lg" title="Setujui/Adakan"><i class="fas fa-check"></i></button>
+                                                <button @click="updateWishlist(w.id, 'rejected')" class="bg-rose-100 hover:bg-rose-200 text-rose-700 p-2 rounded-lg" title="Tolak"><i class="fas fa-times"></i></button>
+                                            </div>
+                                            <span v-else class="text-xs text-slate-400">Selesai</span>
+                                        </td>
+                                    </tr>
+                                    <tr v-if="(user.role === 'superadmin' ? wishlists : myWishlists).length === 0"><td :colspan="user.role === 'superadmin' ? 7 : 5" class="p-8 text-center text-slate-400">Belum ada usulan barang.</td></tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
 
@@ -481,10 +540,11 @@
                                             <td class="p-5"><span :class="getStatusBadge(loan.Status)">{{ loan.Status.replace('_', ' ').toUpperCase() }}</span></td>
                                             <td class="p-5 flex gap-2 justify-center">
                                                 <button @click="viewLoanDetails(loan)" class="bg-white hover:bg-slate-100 text-slate-600 px-3 py-2 rounded-lg text-xs font-bold border border-slate-200 shadow-sm transition"><i class="fas fa-eye"></i> Detail</button>
-                                                <button v-if="loan.Status === 'dipinjam'" @click="cetakSurat('peminjaman', loan)" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 px-3 py-2 rounded-lg text-xs font-bold border border-indigo-200 shadow-sm transition">S. Pinjam</button>
-                                                <button v-if="loan.Status === 'dikembalikan'" @click="cetakSurat('bebas', loan)" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 px-3 py-2 rounded-lg text-xs font-bold border border-emerald-200 shadow-sm transition">S. Bebas</button>
+                                                <button v-if="loan.Status === 'dipinjam'" @click="cetakSurat('peminjaman', loan)" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 px-3 py-2 rounded-lg text-xs font-bold border border-indigo-200 shadow-sm transition"><i class="fas fa-print mr-1"></i> S. Pinjam</button>
+                                                <button v-if="loan.Status === 'dikembalikan'" @click="cetakSurat('bebas', loan)" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 px-3 py-2 rounded-lg text-xs font-bold border border-emerald-200 shadow-sm transition"><i class="fas fa-certificate mr-1"></i> S. Bebas</button>
                                             </td>
                                         </tr>
+                                        <tr v-if="loans.length === 0"><td :colspan="user.role==='superadmin'?5:4" class="p-8 text-center text-slate-400">Belum ada transaksi.</td></tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -515,15 +575,37 @@
                         </div>
                     </div>
 
-                    <!-- ================= SETTINGS ================= -->
+                    <!-- ================= SETTINGS (KOP SURAT DITAHAN) ================= -->
                     <div v-if="currentTab === 'settings'" class="space-y-6 pb-10">
                         <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
-                            <h2 class="text-2xl font-extrabold text-slate-800 mb-6">Pengaturan Institusi & Kop Surat</h2>
-                            <form @submit.prevent="saveSettingsData" class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                <div class="col-span-1 md:col-span-2"><label class="block text-xs font-bold text-slate-500 mb-1">Universitas</label><input v-model="settings.univ_name" type="text" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none"></div>
-                                <div><label class="block text-xs font-bold text-slate-500 mb-1">Fakultas</label><input v-model="settings.faculty_name" type="text" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none"></div>
-                                <div><label class="block text-xs font-bold text-slate-500 mb-1">Kepala Lab</label><input v-model="settings.head_name" type="text" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none"></div>
-                                <div class="col-span-1 md:col-span-2 mt-4 text-right"><button type="submit" class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-xl shadow-lg transition">Simpan</button></div>
+                            <div class="flex items-center gap-4 border-b border-slate-100 pb-6 mb-8">
+                                <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl shadow-sm"><i class="fas fa-cogs"></i></div>
+                                <div>
+                                    <h2 class="text-2xl font-extrabold text-slate-800">Pengaturan Institusi & Kop Surat</h2>
+                                    <p class="text-sm text-slate-500 font-medium">Data ini digunakan untuk header cetak surat Peminjaman dan Surat Bebas Lab.</p>
+                                </div>
+                            </div>
+                            
+                            <form @submit.prevent="saveSettingsData" class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
+                                <div class="col-span-1 md:col-span-2">
+                                    <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase">Nama Kementerian</label>
+                                    <input v-model="settings.kementerian" type="text" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="KEMENTERIAN PENDIDIKAN, KEBUDAYAAN...">
+                                </div>
+                                <div><label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase">Universitas</label><input v-model="settings.univ_name" type="text" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none"></div>
+                                <div><label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase">Fakultas / Lembaga</label><input v-model="settings.faculty_name" type="text" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none"></div>
+                                <div class="col-span-1 md:col-span-2"><label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase">Alamat Fisik</label><input v-model="settings.address" type="text" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none"></div>
+                                <div><label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase">Telepon / Fax</label><input v-model="settings.contact" type="text" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none"></div>
+                                <div><label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase">Email</label><input v-model="settings.email" type="email" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none"></div>
+                                <div><label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase">Website</label><input v-model="settings.website" type="text" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none"></div>
+                                <div><label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase">URL Logo Institusi (.png/.jpg)</label><input v-model="settings.logo_url" type="url" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none"></div>
+                                
+                                <div class="col-span-1 md:col-span-2 border-t border-slate-100 pt-6 mt-2"><h3 class="font-extrabold text-slate-800 text-lg">Pejabat Pengesah (QR Code PDF)</h3></div>
+                                <div><label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase">Kepala Lab</label><input v-model="settings.head_name" type="text" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none"></div>
+                                <div><label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase">NIP Pejabat</label><input v-model="settings.head_nip" type="text" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none"></div>
+                                
+                                <div class="col-span-1 md:col-span-2 mt-4 text-right">
+                                    <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-xl shadow-lg transition"><i class="fas fa-save mr-2"></i>Simpan Pengaturan</button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -543,6 +625,25 @@
                 <div class="flex gap-2">
                     <button @click="showPasswordModal = false" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-700 py-3 rounded-xl font-bold">Batal</button>
                     <button @click="changeMyPassword" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl font-bold">Simpan</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL WISHLIST -->
+        <div v-if="modals.wishlist" class="fixed inset-0 bg-slate-900/60 z-[100] flex justify-center items-center backdrop-blur-sm p-4">
+            <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl p-6">
+                <h3 class="font-extrabold text-xl mb-4 text-teal-700">Formulir Usulan Barang</h3>
+                <input v-model="wishForm.itemName" type="text" placeholder="Nama Barang/Alat (Misal: Arduino Uno)" class="w-full p-3 mb-3 bg-slate-50 border border-slate-200 rounded-xl outline-none">
+                <div class="grid grid-cols-2 gap-4 mb-3">
+                    <select v-model="wishForm.category" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl outline-none appearance-none">
+                        <option value="Alat">Alat Lab</option><option value="Bahan">Bahan Praktikum</option>
+                    </select>
+                    <input v-model="wishForm.qty" type="number" min="1" placeholder="Estimasi Jumlah" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl outline-none">
+                </div>
+                <textarea v-model="wishForm.purpose" placeholder="Alasan / Kegunaan (Contoh: Untuk praktek modul IoT minggu depan)" class="w-full p-3 mb-5 bg-slate-50 border border-slate-200 rounded-xl outline-none" rows="3"></textarea>
+                <div class="flex gap-3">
+                    <button @click="modals.wishlist = false" class="flex-1 bg-slate-100 py-3 rounded-xl font-bold">Batal</button>
+                    <button @click="saveWishlist" class="flex-1 bg-teal-600 text-white py-3 rounded-xl font-bold">Kirim Usulan</button>
                 </div>
             </div>
         </div>
@@ -568,59 +669,21 @@
             </div>
         </div>
 
-        <!-- MODAL SUPPLIER -->
-        <div v-if="modals.supplier" class="fixed inset-0 bg-slate-900/60 z-[100] flex justify-center items-center backdrop-blur-sm p-4">
-            <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl p-6">
-                <h3 class="font-extrabold text-xl mb-4">Form Supplier</h3>
-                <input v-model="supForm.Nama_Supplier" type="text" placeholder="Nama Perusahaan/Toko" class="w-full p-3 mb-3 bg-slate-50 border border-slate-200 rounded-xl outline-none">
-                <input v-model="supForm.Kontak" type="text" placeholder="No Telp / WhatsApp" class="w-full p-3 mb-3 bg-slate-50 border border-slate-200 rounded-xl outline-none">
-                <textarea v-model="supForm.Alamat" placeholder="Alamat Lengkap" class="w-full p-3 mb-5 bg-slate-50 border border-slate-200 rounded-xl outline-none"></textarea>
-                <div class="flex gap-3">
-                    <button @click="modals.supplier = false" class="flex-1 bg-slate-100 py-3 rounded-xl font-bold">Batal</button>
-                    <button @click="saveSupplier" class="flex-1 bg-indigo-600 text-white py-3 rounded-xl font-bold">Simpan</button>
+        <!-- MODAL SCANNER KAMERA -->
+        <div v-show="modals.scanner" class="fixed inset-0 bg-slate-900/90 z-[100] flex justify-center items-center backdrop-blur-sm p-4 animate-fade-in">
+            <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl flex flex-col overflow-hidden relative">
+                <div class="p-4 bg-indigo-600 text-white flex justify-between items-center shadow-md z-10 relative">
+                    <h3 class="font-extrabold text-lg"><i class="fas fa-camera mr-2"></i> Scan Barcode</h3>
+                    <button @click="closeScannerModal" class="w-8 h-8 rounded-full bg-indigo-700 hover:bg-white hover:text-indigo-600 flex items-center justify-center transition-colors"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="p-4 bg-slate-50 flex flex-col items-center">
+                    <p class="text-xs text-slate-500 mb-2 font-medium text-center">Arahkan kamera ke barcode alat/bahan.</p>
+                    <div id="reader"></div>
                 </div>
             </div>
         </div>
 
-        <!-- MODAL INBOUND (BARANG MASUK) -->
-        <div v-if="modals.inbound" class="fixed inset-0 bg-slate-900/60 z-[100] flex justify-center items-center backdrop-blur-sm p-4">
-            <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl p-6">
-                <h3 class="font-extrabold text-xl mb-4 text-emerald-700">Input Barang Masuk</h3>
-                <select v-model="inoutForm.ID_Supplier" class="w-full p-3 mb-3 bg-slate-50 border border-slate-200 rounded-xl outline-none appearance-none">
-                    <option value="">-- Pilih Supplier --</option>
-                    <option v-for="s in suppliers" :key="s.ID_Supplier" :value="s.ID_Supplier">{{ s.Nama_Supplier }}</option>
-                </select>
-                <select v-model="inoutForm.ID_Barang" class="w-full p-3 mb-3 bg-slate-50 border border-slate-200 rounded-xl outline-none appearance-none">
-                    <option value="">-- Pilih Barang yang Masuk --</option>
-                    <option v-for="i in inventory" :key="i.ID_Barang" :value="i.ID_Barang">{{ i.Nama_Barang }}</option>
-                </select>
-                <input v-model="inoutForm.Qty" type="number" min="1" placeholder="Jumlah Masuk (Qty)" class="w-full p-3 mb-3 bg-slate-50 border border-slate-200 rounded-xl outline-none">
-                <input v-model="inoutForm.Keterangan" type="text" placeholder="Keterangan (Merek, Batch, dll)" class="w-full p-3 mb-5 bg-slate-50 border border-slate-200 rounded-xl outline-none">
-                <div class="flex gap-3">
-                    <button @click="modals.inbound = false" class="flex-1 bg-slate-100 py-3 rounded-xl font-bold">Batal</button>
-                    <button @click="saveInbound" class="flex-1 bg-emerald-600 text-white py-3 rounded-xl font-bold">Proses Tambah Stok</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- MODAL OUTBOUND (BARANG KELUAR) -->
-        <div v-if="modals.outbound" class="fixed inset-0 bg-slate-900/60 z-[100] flex justify-center items-center backdrop-blur-sm p-4">
-            <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl p-6">
-                <h3 class="font-extrabold text-xl mb-4 text-rose-700">Input Barang Keluar</h3>
-                <select v-model="inoutForm.ID_Barang" class="w-full p-3 mb-3 bg-slate-50 border border-slate-200 rounded-xl outline-none appearance-none">
-                    <option value="">-- Pilih Barang yang Dikeluarkan --</option>
-                    <option v-for="i in inventory" :key="i.ID_Barang" :value="i.ID_Barang">{{ i.Nama_Barang }} (Sisa: {{i.Jumlah_Tersedia}})</option>
-                </select>
-                <input v-model="inoutForm.Qty" type="number" min="1" placeholder="Jumlah Keluar (Qty)" class="w-full p-3 mb-3 bg-slate-50 border border-slate-200 rounded-xl outline-none">
-                <input v-model="inoutForm.Keterangan" type="text" placeholder="Tujuan / Alasan (Habis, Rusak, dll)" class="w-full p-3 mb-5 bg-slate-50 border border-slate-200 rounded-xl outline-none">
-                <div class="flex gap-3">
-                    <button @click="modals.outbound = false" class="flex-1 bg-slate-100 py-3 rounded-xl font-bold">Batal</button>
-                    <button @click="saveOutbound" class="flex-1 bg-rose-600 text-white py-3 rounded-xl font-bold">Proses Kurangi Stok</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- MODAL KERANJANG (Sama seperti sebelumnya) -->
+        <!-- MODAL KERANJANG (CART) -->
         <div v-if="showCart" class="fixed inset-0 bg-slate-900/60 z-[100] flex justify-end backdrop-blur-sm transition-all duration-300">
             <div class="w-full max-w-md bg-white h-full shadow-2xl flex flex-col transform">
                 <div class="p-6 bg-indigo-600 text-white flex justify-between items-center shadow-md">
@@ -680,6 +743,7 @@
                 <a @click="$emit('change-tab', 'dashboard')" :class="['flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer text-sm', currentTab==='dashboard'?'bg-indigo-600 text-white':'hover:bg-slate-800']"><i class="fas fa-chart-pie w-5"></i> Dashboard</a>
                 <a @click="$emit('change-tab', 'inventory')" :class="['flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer text-sm', currentTab==='inventory'?'bg-indigo-600 text-white':'hover:bg-slate-800']"><i class="fas fa-boxes w-5"></i> Katalog Inventaris</a>
                 <a @click="$emit('change-tab', 'loans')" :class="['flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer text-sm', currentTab==='loans'?'bg-indigo-600 text-white':'hover:bg-slate-800']"><i class="fas fa-file-signature w-5"></i> Transaksi Pinjam</a>
+                <a @click="$emit('change-tab', 'wishlists')" :class="['flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer text-sm', currentTab==='wishlists'?'bg-indigo-600 text-white':'hover:bg-slate-800']"><i class="fas fa-lightbulb w-5"></i> {{ user.role === 'superadmin' ? 'Usulan User' : 'Wishlist (Usulan)' }}</a>
 
                 <template v-if="user.role === 'superadmin'">
                     <p class="text-[10px] font-bold text-slate-500 uppercase px-3 mb-2 mt-6 border-t border-slate-800 pt-4">Sirkulasi & ERP</p>
@@ -690,7 +754,7 @@
                     <p class="text-[10px] font-bold text-slate-500 uppercase px-3 mb-2 mt-6 border-t border-slate-800 pt-4">Sistem</p>
                     <a @click="$emit('change-tab', 'reports')" :class="['flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer text-sm', currentTab==='reports'?'bg-indigo-600 text-white':'hover:bg-slate-800']"><i class="fas fa-print w-5"></i> Laporan Cetak</a>
                     <a @click="$emit('change-tab', 'users')" :class="['flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer text-sm', currentTab==='users'?'bg-indigo-600 text-white':'hover:bg-slate-800']"><i class="fas fa-users-cog w-5"></i> Manajemen User</a>
-                    <a @click="$emit('change-tab', 'settings')" :class="['flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer text-sm', currentTab==='settings'?'bg-indigo-600 text-white':'hover:bg-slate-800']"><i class="fas fa-cogs w-5"></i> Pengaturan</a>
+                    <a @click="$emit('change-tab', 'settings')" :class="['flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer text-sm', currentTab==='settings'?'bg-indigo-600 text-white':'hover:bg-slate-800']"><i class="fas fa-cogs w-5"></i> Pengaturan Kop</a>
                 </template>
             </nav>
             <div class="p-4 bg-slate-900 border-t border-slate-800/50">
@@ -702,7 +766,6 @@
     <script>
         const { createApp, ref, computed, onMounted } = Vue;
 
-        // URL GAS (Wajib update di GAS nantinya untuk merekam tabel Supplier/Inbound/Outbound permanen)
         const GAS_URL = "https://script.google.com/macros/s/AKfycbwPnogFmzXEI68eSMFMnaYnWkkyGuaZsQBLh7O7TCIKjUaIZ1rcg9WS80kVr2aPfZI1XA/exec"; 
 
         const app = createApp({
@@ -724,13 +787,11 @@
                 const loans = ref([]);
                 const usersList = ref([]);
                 
-                // ERP Data (Local Memory / Mocking for demo before GAS update)
-                const suppliers = ref([
-                    { ID_Supplier: 'SUP-001', Nama_Supplier: 'PT. Indo Chem Medica', Kontak: '081122334455', Alamat: 'Kawasan Industri Pulogadung' },
-                    { ID_Supplier: 'SUP-002', Nama_Supplier: 'CV. Sentra Alat Lab', Kontak: '085566778899', Alamat: 'Jl. Ahmad Yani No 12' }
-                ]);
+                // ERP Data & Wishlist (Mocking local memory until GAS updated)
+                const suppliers = ref([]);
                 const inbounds = ref([]);
                 const outbounds = ref([]);
+                const wishlists = ref([]); // Data usulan barang
 
                 // Forms & Modals
                 const barcodeInput = ref('');
@@ -742,16 +803,18 @@
                 const cart = ref([]);
                 const loanForm = ref({ batasKembali: '' });
 
-                const modals = ref({ supplier: false, inbound: false, outbound: false });
+                const modals = ref({ supplier: false, inbound: false, outbound: false, scanner: false, wishlist: false });
                 const supForm = ref({ ID_Supplier: '', Nama_Supplier: '', Kontak: '', Alamat: '' });
                 const inoutForm = ref({ ID_Supplier: '', ID_Barang: '', Qty: '', Keterangan: '' });
+                const wishForm = ref({ itemName: '', category: 'Alat', qty: 1, purpose: '' });
+                let html5QrcodeScanner = null;
 
                 // Reports Filter
                 const reportType = ref('inbound');
                 const reportStart = ref('');
                 const reportEnd = ref('');
 
-                // Computed Filters
+                // Computed
                 const filteredInventory = computed(() => {
                     let result = inventory.value;
                     if (filterCategory.value !== 'Semua') result = result.filter(i => i.Kategori === filterCategory.value);
@@ -764,41 +827,29 @@
                 const searchQuery = ref('');
                 const todayDate = computed(() => { const d = new Date(); d.setDate(d.getDate() + 1); return d.toISOString().split('T')[0]; });
 
-                // Computed Dashboard Stats
+                const myWishlists = computed(() => wishlists.value.filter(w => w.userId === user.value?.id));
+
                 const stats = computed(() => {
                     const totalInQty = inbounds.value.reduce((sum, item) => sum + parseInt(item.Qty || 0), 0);
                     const totalOutQty = outbounds.value.reduce((sum, item) => sum + parseInt(item.Qty || 0), 0);
                     const totalInvFisik = inventory.value.reduce((sum, item) => sum + parseInt(item.Jumlah_Total || 0), 0);
                     const lns = loans.value;
                     return {
-                        totalModels: inventory.value.length,
-                        totalItems: totalInvFisik,
-                        totalUsers: usersList.value.length,
-                        totalSuppliers: suppliers.value.length,
-                        totalLoans: lns.length,
-                        loansActive: lns.filter(l => l.Status === 'dipinjam').length,
-                        loansReturned: lns.filter(l => l.Status === 'dikembalikan').length,
-                        totalInboundQty: totalInQty,
-                        totalOutboundQty: totalOutQty,
-                        trxInbound: inbounds.value.length,
-                        trxOutbound: outbounds.value.length
+                        totalModels: inventory.value.length, totalItems: totalInvFisik, totalUsers: usersList.value.length, totalSuppliers: suppliers.value.length,
+                        totalLoans: lns.length, loansActive: lns.filter(l => l.Status === 'dipinjam').length, loansReturned: lns.filter(l => l.Status === 'dikembalikan').length,
+                        totalInboundQty: totalInQty, totalOutboundQty: totalOutQty, trxInbound: inbounds.value.length, trxOutbound: outbounds.value.length
                     }
                 });
 
                 const filteredReportData = computed(() => {
                     let source = reportType.value === 'inbound' ? inbounds.value : (reportType.value === 'outbound' ? outbounds.value : loans.value);
                     if(!reportStart.value && !reportEnd.value) return source;
-                    
                     return source.filter(row => {
                         let rowDateStr = reportType.value === 'loans' ? row.Tanggal_Pinjam : row.Tanggal;
                         let rowDate = new Date(rowDateStr);
                         let isAfter = true, isBefore = true;
                         if(reportStart.value) isAfter = rowDate >= new Date(reportStart.value);
-                        if(reportEnd.value) {
-                            let endD = new Date(reportEnd.value);
-                            endD.setHours(23,59,59,999);
-                            isBefore = rowDate <= endD;
-                        }
+                        if(reportEnd.value) { let endD = new Date(reportEnd.value); endD.setHours(23,59,59,999); isBefore = rowDate <= endD; }
                         return isAfter && isBefore;
                     });
                 });
@@ -807,22 +858,9 @@
                 const apiCall = async (action, payload = {}) => {
                     isLoading.value = true;
                     try {
-                        const response = await fetch(GAS_URL, {
-                            method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                            body: JSON.stringify({ action, payload })
-                        });
-                        const rawText = await response.text();
-                        try {
-                            const resJSON = JSON.parse(rawText);
-                            if(resJSON.message === "Action not found") {
-                                // MOCKING FALLBACK (Jika backend GAS belum punya fungsi ERP, pakai local variable agar UI tetap work)
-                                console.warn(`Simulated local fallback for action: ${action}`);
-                                return { success: true, isMock: true, data: [] }; 
-                            }
-                            return resJSON;
-                        } catch (e) {
-                            return { success: false, message: "Server Error Format" };
-                        }
+                        const response = await fetch(GAS_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action, payload }) });
+                        const resJSON = JSON.parse(await response.text());
+                        return resJSON.message === "Action not found" ? { success: true, isMock: true, data: [] } : resJSON;
                     } catch (error) {
                         return { success: false, message: "Koneksi Terputus" };
                     } finally { isLoading.value = false; }
@@ -830,6 +868,9 @@
 
                 const fetchData = async () => {
                     if (!user.value) return;
+                    // Load Settings
+                    apiCall('getSettings').then(r => { if(r.success && !r.isMock) settings.value = { ...settings.value, ...r.data }; });
+                    
                     let p1 = apiCall('getInventory').then(r => r.success && !r.isMock ? inventory.value = r.data : null);
                     let p2 = apiCall('getLoans', { userId: user.value.id, role: user.value.role }).then(r => r.success && !r.isMock ? loans.value = r.data : null);
                     if (user.value.role === 'superadmin') {
@@ -845,9 +886,7 @@
                         if (isLoginMode.value) {
                             user.value = res.user; localStorage.setItem('labUser', JSON.stringify(res.user));
                             fetchData();
-                        } else {
-                            Swal.fire('Berhasil', res.message, 'success'); isLoginMode.value = true;
-                        }
+                        } else { Swal.fire('Berhasil', res.message, 'success'); isLoginMode.value = true; }
                     } else Swal.fire('Gagal', res.message, 'error');
                 };
                 const logout = () => { user.value = null; localStorage.removeItem('labUser'); };
@@ -856,126 +895,218 @@
                 // ERP FUNCTIONS (Supplier, Inbound, Outbound Local State Management)
                 const getSupplierName = (id) => { const s = suppliers.value.find(x => x.ID_Supplier === id); return s ? s.Nama_Supplier : id; };
                 const getInventoryName = (id) => { const i = inventory.value.find(x => x.ID_Barang === id); return i ? i.Nama_Barang : id; };
-                
-                const openSupplierModal = (sup = null) => {
-                    if(sup) supForm.value = {...sup};
-                    else supForm.value = { ID_Supplier: 'SUP-'+new Date().getTime(), Nama_Supplier: '', Kontak: '', Alamat: '' };
-                    modals.value.supplier = true;
-                };
-                const saveSupplier = () => {
-                    const idx = suppliers.value.findIndex(s => s.ID_Supplier === supForm.value.ID_Supplier);
-                    if(idx > -1) suppliers.value[idx] = {...supForm.value};
-                    else suppliers.value.push({...supForm.value});
-                    modals.value.supplier = false;
-                    Swal.fire({toast:true, position:'top-end', icon:'success', title:'Supplier Disimpan', showConfirmButton:false, timer:1500});
-                };
-                const deleteSupplier = (id) => {
-                    suppliers.value = suppliers.value.filter(s => s.ID_Supplier !== id);
-                };
+                const openSupplierModal = (sup = null) => { if(sup) supForm.value = {...sup}; else supForm.value = { ID_Supplier: 'SUP-'+new Date().getTime(), Nama_Supplier: '', Kontak: '', Alamat: '' }; modals.value.supplier = true; };
+                const saveSupplier = () => { const idx = suppliers.value.findIndex(s => s.ID_Supplier === supForm.value.ID_Supplier); if(idx > -1) suppliers.value[idx] = {...supForm.value}; else suppliers.value.push({...supForm.value}); modals.value.supplier = false; Swal.fire({toast:true, position:'top-end', icon:'success', title:'Supplier Disimpan', showConfirmButton:false, timer:1500}); };
+                const deleteSupplier = (id) => { suppliers.value = suppliers.value.filter(s => s.ID_Supplier !== id); };
 
                 const openInboundModal = () => { inoutForm.value = { ID_Supplier: '', ID_Barang: '', Qty: '', Keterangan: '' }; modals.value.inbound = true; };
                 const saveInbound = async () => {
                     if(!inoutForm.value.ID_Barang || !inoutForm.value.Qty) return;
-                    const dateStr = new Date().toISOString();
-                    inbounds.value.push({ ID: 'INB-'+new Date().getTime(), Tanggal: dateStr, ...inoutForm.value });
-                    
-                    // UPDATE REAL INVENTORY
-                    const res = await apiCall('updateStock', { id: inoutForm.value.ID_Barang, amount: parseInt(inoutForm.value.Qty) });
-                    if(res.success) fetchData();
-                    
-                    modals.value.inbound = false;
-                    Swal.fire('Berhasil', 'Barang masuk tercatat, stok bertambah.', 'success');
+                    inbounds.value.push({ ID: 'INB-'+new Date().getTime(), Tanggal: new Date().toISOString(), ...inoutForm.value });
+                    await apiCall('updateStock', { id: inoutForm.value.ID_Barang, amount: parseInt(inoutForm.value.Qty) }); fetchData();
+                    modals.value.inbound = false; Swal.fire('Berhasil', 'Barang masuk tercatat.', 'success');
                 };
 
                 const openOutboundModal = () => { inoutForm.value = { ID_Supplier: '-', ID_Barang: '', Qty: '', Keterangan: '' }; modals.value.outbound = true; };
                 const saveOutbound = async () => {
                     if(!inoutForm.value.ID_Barang || !inoutForm.value.Qty) return;
                     const item = inventory.value.find(i => i.ID_Barang === inoutForm.value.ID_Barang);
-                    if(!item || item.Jumlah_Tersedia < inoutForm.value.Qty) return Swal.fire('Gagal', 'Stok fisik tidak mencukupi untuk dikeluarkan.', 'error');
-                    
-                    const dateStr = new Date().toISOString();
-                    outbounds.value.push({ ID: 'OUT-'+new Date().getTime(), Tanggal: dateStr, ...inoutForm.value });
-                    
-                    // UPDATE REAL INVENTORY (Negative value for reduction)
-                    const res = await apiCall('updateStock', { id: inoutForm.value.ID_Barang, amount: -parseInt(inoutForm.value.Qty) });
-                    if(res.success) fetchData();
-                    
-                    modals.value.outbound = false;
-                    Swal.fire('Berhasil', 'Barang keluar tercatat, stok berkurang.', 'success');
+                    if(!item || item.Jumlah_Tersedia < inoutForm.value.Qty) return Swal.fire('Gagal', 'Stok fisik tidak mencukupi.', 'error');
+                    outbounds.value.push({ ID: 'OUT-'+new Date().getTime(), Tanggal: new Date().toISOString(), ...inoutForm.value });
+                    await apiCall('updateStock', { id: inoutForm.value.ID_Barang, amount: -parseInt(inoutForm.value.Qty) }); fetchData();
+                    modals.value.outbound = false; Swal.fire('Berhasil', 'Barang keluar tercatat.', 'success');
+                };
+
+                // WISHLIST (USULAN BARANG)
+                const openWishlistModal = () => { wishForm.value = { itemName: '', category: 'Alat', qty: 1, purpose: '' }; modals.value.wishlist = true; };
+                const saveWishlist = () => {
+                    if(!wishForm.value.itemName) return;
+                    wishlists.value.push({ id: 'WSH-'+new Date().getTime(), userId: user.value.id, userName: user.value.nama, date: new Date().toISOString(), status: 'pending', ...wishForm.value });
+                    modals.value.wishlist = false;
+                    Swal.fire('Terkirim!', 'Usulan barang berhasil diajukan ke admin.', 'success');
+                };
+                const updateWishlist = (id, newStatus) => {
+                    const w = wishlists.value.find(x => x.id === id);
+                    if(w) { w.status = newStatus; Swal.fire({toast:true, position:'top-end', icon:'success', title:'Status Diperbarui', showConfirmButton:false, timer:1500}); }
                 };
 
                 // CRUD Barang Detail
-                const promptEditItem = (item) => {
-                    newItemForm.value = { idBarang: item.ID_Barang, namaBarang: item.Nama_Barang, kategori: item.Kategori, jumlah: item.Jumlah_Total, kondisi: item.Kondisi, lokasi: item.Lokasi };
-                    isEditMode.value = true;
-                    showAddModal.value = true;
-                };
-                const submitNewItem = async () => {
-                    // Logic Edit vs Add (Assume API handles overwrite if ID exists for this demo logic)
-                    const res = await apiCall('addSingleInventory', newItemForm.value);
-                    if(res.success) { showAddModal.value = false; isEditMode.value = false; fetchData(); }
-                };
-                const deleteItem = (item) => {
-                    // Fitur hapus sebenarnya perlu API delete. Kita mock sementara di array:
-                    Swal.fire({title:'Hapus Barang?', text:'Data akan dihapus permanen', icon:'warning', showCancelButton:true}).then((res)=>{
-                        if(res.isConfirmed) {
-                            inventory.value = inventory.value.filter(i => i.ID_Barang !== item.ID_Barang);
-                            Swal.fire('Terhapus', '', 'success');
-                        }
-                    });
+                const promptEditItem = (item) => { newItemForm.value = { idBarang: item.ID_Barang, namaBarang: item.Nama_Barang, kategori: item.Kategori, jumlah: item.Jumlah_Total, kondisi: item.Kondisi, lokasi: item.Lokasi }; isEditMode.value = true; showAddModal.value = true; };
+                const submitNewItem = async () => { const res = await apiCall('addSingleInventory', newItemForm.value); if(res.success) { showAddModal.value = false; isEditMode.value = false; fetchData(); } };
+                const deleteItem = (item) => { Swal.fire({title:'Hapus Barang?', text:'Data akan dihapus permanen', icon:'warning', showCancelButton:true}).then((res)=>{ if(res.isConfirmed) { inventory.value = inventory.value.filter(i => i.ID_Barang !== item.ID_Barang); Swal.fire('Terhapus', '', 'success'); } }); };
+
+                // Settings Kop Surat
+                const saveSettingsData = async () => {
+                    const res = await apiCall('saveSettings', settings.value);
+                    if(res.success) Swal.fire('Tersimpan', 'Pengaturan Kop Surat Disimpan', 'success');
                 };
 
                 // Reports Print & PDF
                 const printArea = () => { window.print(); };
                 const generateReportPDF = () => {
-                    const { jsPDF } = window.jspdf;
-                    const doc = new jsPDF();
-                    doc.setFontSize(16);
-                    doc.text(`LAPORAN ${reportType.value.toUpperCase()} LAB`, 14, 20);
-                    doc.setFontSize(10);
-                    doc.text(`Periode: ${reportStart.value || 'Awal'} s/d ${reportEnd.value || 'Akhir'}`, 14, 28);
+                    const { jsPDF } = window.jspdf; const doc = new jsPDF();
+                    doc.setFontSize(16); doc.text(`LAPORAN ${reportType.value.toUpperCase()} LAB`, 14, 20);
+                    doc.setFontSize(10); doc.text(`Periode: ${reportStart.value || 'Awal'} s/d ${reportEnd.value || 'Akhir'}`, 14, 28);
                     
-                    let head = []; let body = [];
-                    if(reportType.value === 'inbound') {
-                        head = [['Tgl', 'Barang', 'Supplier', 'Qty', 'Ket']];
-                        body = filteredReportData.value.map(r => [formatDate(r.Tanggal), getInventoryName(r.ID_Barang), getSupplierName(r.ID_Supplier), r.Qty, r.Keterangan]);
-                    } else if(reportType.value === 'outbound') {
-                        head = [['Tgl', 'Barang', 'Qty', 'Tujuan']];
-                        body = filteredReportData.value.map(r => [formatDate(r.Tanggal), getInventoryName(r.ID_Barang), r.Qty, r.Keterangan]);
-                    } else {
-                        head = [['Tgl', 'Peminjam', 'Status']];
-                        body = filteredReportData.value.map(r => [formatDate(r.Tanggal_Pinjam), r.Nama_Peminjam, r.Status]);
-                    }
-
-                    doc.autoTable({ startY: 35, head: head, body: body, theme: 'grid' });
-                    doc.save(`Laporan_${reportType.value}.pdf`);
+                    let head = [], body = [];
+                    if(reportType.value === 'inbound') { head = [['Tgl', 'Barang', 'Supplier', 'Qty', 'Ket']]; body = filteredReportData.value.map(r => [formatDate(r.Tanggal), getInventoryName(r.ID_Barang), getSupplierName(r.ID_Supplier), r.Qty, r.Keterangan]); } 
+                    else if(reportType.value === 'outbound') { head = [['Tgl', 'Barang', 'Qty', 'Tujuan']]; body = filteredReportData.value.map(r => [formatDate(r.Tanggal), getInventoryName(r.ID_Barang), r.Qty, r.Keterangan]); } 
+                    else { head = [['Tgl', 'Peminjam', 'Status']]; body = filteredReportData.value.map(r => [formatDate(r.Tanggal_Pinjam), r.Nama_Peminjam, r.Status]); }
+                    doc.autoTable({ startY: 35, head: head, body: body, theme: 'grid' }); doc.save(`Laporan_${reportType.value}.pdf`);
                 };
-
-                const parseJSONSafe = (str) => { try { return typeof str==='string' ? JSON.parse(str||"[]") : (str||[]); }catch(e){return []} };
 
                 // Ganti Password Pribadi
                 const changeMyPassword = async () => {
                     const res = await apiCall('login', { email: user.value.email, password: pwdForm.value.old });
                     if(!res.success) return Swal.fire('Gagal', 'Password Lama Salah', 'error');
-                    
                     const res2 = await apiCall('resetPassword', { userId: user.value.id, newPassword: pwdForm.value.new });
-                    if(res2.success) {
-                        Swal.fire('Berhasil', 'Password telah diganti', 'success');
-                        showPasswordModal.value = false; pwdForm.value = {old:'', new:''};
-                    }
+                    if(res2.success) { Swal.fire('Berhasil', 'Password telah diganti', 'success'); showPasswordModal.value = false; pwdForm.value = {old:'', new:''}; }
                 };
 
-                // --- FUNGSI STANDAR (Loans, Carts, Surat) - Minimized for brevity as requested previously ---
+                // --- FUNGSI STANDAR TRANSAKSI ---
                 const addToCart = (item) => { const exist = cart.value.find(i => i.ID_Barang === item.ID_Barang); if (exist) { if (exist.qty < item.Jumlah_Tersedia) exist.qty++; } else { cart.value.push({ ...item, qty: 1 }); } Swal.fire({ toast: true, position: 'bottom-end', icon: 'success', title: 'Masuk keranjang', showConfirmButton: false, timer: 1000 }); };
                 const updateCartQty = (index, change) => { const item = cart.value[index]; const invItem = inventory.value.find(i => i.ID_Barang === item.ID_Barang); const newQty = item.qty + change; if (newQty > 0 && newQty <= invItem.Jumlah_Tersedia) item.qty = newQty; };
                 const removeFromCart = (index) => cart.value.splice(index, 1);
                 const submitLoan = async () => { const payload = { userId: user.value.id, userName: user.value.nama, userRole: user.value.role, items: cart.value.map(i => ({ id: i.ID_Barang, nama: i.Nama_Barang, qty: i.qty })), batasKembali: loanForm.value.batasKembali }; const res = await apiCall('createLoan', payload); if (res.success) { Swal.fire('Berhasil!', 'Permohonan pinjaman dikirim.', 'success'); cart.value = []; showCart.value = false; loanForm.value.batasKembali = ''; fetchData(); currentTab.value = 'loans'; } };
+                const parseJSONSafe = (str) => { try { return typeof str==='string' ? JSON.parse(str||"[]") : (str||[]); }catch(e){return []} };
+                
+                const viewLoanDetails = (loan) => {
+                    let itemsHtml = '<ul class="text-left mt-4 mb-5 space-y-2">';
+                    parseJSONSafe(loan.Item_JSON).forEach(i => itemsHtml += `<li class="text-sm bg-slate-50 p-2 flex justify-between"><span>📦 ${i.nama}</span> <span class="font-black text-indigo-600">${i.qty} unit</span></li>`); 
+                    itemsHtml += '</ul>';
+                    Swal.fire({
+                        title: `ID Transaksi: ${loan.ID_Pinjam}`,
+                        html: `<div class="text-sm"><p class="text-left bg-slate-50 p-2"><strong>Peminjam:</strong> ${loan.Nama_Peminjam}</p><p class="text-left bg-rose-50 p-2"><strong>Batas Kembali:</strong> ${formatDate(loan.Batas_Kembali)}</p>${itemsHtml}</div>`,
+                        showDenyButton: user.value.role === 'superadmin' && loan.Status === 'menunggu_persetujuan', denyButtonText: 'Tolak',
+                        showCancelButton: user.value.role === 'superadmin', cancelButtonText: loan.Status === 'menunggu_persetujuan' ? 'Setujui' : (loan.Status === 'dipinjam' ? 'Tandai Dikembalikan' : 'Tutup'),
+                        confirmButtonText: 'Tutup'
+                    }).then(async (result) => {
+                        let newStatus = '';
+                        if (result.isDismissed && result.dismiss === Swal.DismissReason.cancel && user.value.role === 'superadmin') {
+                            if(loan.Status === 'menunggu_persetujuan') newStatus = 'dipinjam';
+                            if(loan.Status === 'dipinjam') newStatus = 'dikembalikan';
+                        } else if (result.isDenied) newStatus = 'ditolak';
+
+                        if (newStatus) { const res = await apiCall('updateLoanStatus', { loanId: loan.ID_Pinjam, status: newStatus }); if (res.success) fetchData(); }
+                    });
+                };
+
                 const formatDate = (dateString) => { if (!dateString) return '-'; return new Date(dateString).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }); };
                 const getStatusBadge = (status) => { const map = { 'menunggu_persetujuan': 'bg-amber-50 text-amber-600 px-3 py-1 rounded-md text-[10px] border border-amber-200', 'dipinjam': 'bg-indigo-50 text-indigo-600 px-3 py-1 rounded-md text-[10px] border border-indigo-200', 'dikembalikan': 'bg-emerald-50 text-emerald-600 px-3 py-1 rounded-md text-[10px] border border-emerald-200'}; return map[status] || 'bg-slate-50 text-slate-600 px-3 py-1 rounded-md text-[10px] border border-slate-200'; };
+                const promptResetPassword = (u) => { Swal.fire({ title: `Reset Sandi ${u.Nama}`, input: 'text', inputLabel: 'Password Baru', showCancelButton: true }).then(async (res) => { if (res.isConfirmed) { await apiCall('resetPassword', { userId: u.ID, newPassword: res.value }); Swal.fire('Berhasil','','success'); } }); };
+
+                // --- CETAK SURAT PDF LENGKAP (KOP SURAT + QR) ---
+                const cetakSurat = async (type, loan) => {
+                    isLoading.value = true;
+                    try {
+                        const { jsPDF } = window.jspdf; const doc = new jsPDF(); const set = settings.value;
+                        
+                        // KOP SURAT
+                        doc.setFont("helvetica", "normal"); doc.setFontSize(11);
+                        doc.text((set.kementerian || "KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI").toUpperCase(), 115, 20, { align: "center" });
+                        doc.setFont("helvetica", "bold"); doc.setFontSize(15);
+                        doc.text((set.univ_name || "UNIVERSITAS SYIAH KUALA").toUpperCase(), 115, 26, { align: "center" });
+                        doc.setFont("helvetica", "bold"); doc.setFontSize(14);
+                        doc.text((set.faculty_name || "FAKULTAS MATEMATIKA DAN ILMU PENGETAHUAN ALAM").toUpperCase(), 115, 32, { align: "center" });
+                        doc.setFont("helvetica", "normal"); doc.setFontSize(10);
+                        doc.text((set.address || "Jalan Teuku Nyak Arief, Darussalam, Banda Aceh 23111"), 115, 38, { align: "center" });
+                        const kontakGabungan = `${set.contact ? `Telepon ${set.contact}` : "Telepon (0651) 7553205"}    ${set.email ? `Email: ${set.email}` : "Email: fmipa@usk.ac.id"}    ${set.website ? `Laman: ${set.website}` : "Laman: www.fmipa.usk.ac.id"}`;
+                        doc.text(kontakGabungan, 115, 43, { align: "center" });
+                        
+                        if (set.logo_url && set.logo_url.trim() !== '') {
+                            try {
+                                const img = new Image(); img.crossOrigin = "Anonymous"; img.src = set.logo_url;
+                                await new Promise((resolve, reject) => { img.onload = resolve; img.onerror = reject; });
+                                doc.addImage(img, 15, 15, 25, 25);
+                            } catch(e) {}
+                        }
+                        doc.setLineWidth(1.0); doc.line(15, 48, 195, 48); doc.setLineWidth(0.3); doc.line(15, 49.5, 195, 49.5);
+                        
+                        // ISI SURAT
+                        doc.setFont("helvetica", "normal"); doc.setFontSize(11);
+                        const today = new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
+                        doc.text(`Tanggal : ${today}`, 150, 58);
+                        
+                        let title = type === 'peminjaman' ? "SURAT PERSETUJUAN PEMINJAMAN ALAT/BAHAN" : "SURAT KETERANGAN BEBAS LABORATORIUM";
+                        doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.text(title, 105, 70, { align: "center" });
+                        doc.setLineWidth(0.5); doc.line(105 - (doc.getTextWidth(title)/2), 71, 105 + (doc.getTextWidth(title)/2), 71);
+                        
+                        doc.setFont("helvetica", "normal"); doc.setFontSize(11);
+                        doc.text("Yang bertanda tangan di bawah ini menerangkan bahwa:", 20, 82);
+                        doc.text("Nama Pemohon", 30, 92);  doc.text(":", 65, 92);  doc.text(loan.Nama_Peminjam, 68, 92);
+                        doc.text("Status / Peran", 30, 99);  doc.text(":", 65, 99);  doc.text(loan.Role.toUpperCase(), 68, 99);
+                        doc.text("ID Transaksi", 30, 106); doc.text(":", 65, 106); doc.text(loan.ID_Pinjam, 68, 106);
+                        
+                        const batasFormat = new Date(loan.Batas_Kembali).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
+                        let textIsi = type === 'peminjaman' ? `Telah disetujui untuk meminjam alat/bahan dari laboratorium terhitung mulai tanggal pengajuan sampai dengan tanggal ${batasFormat}, dengan rincian barang sebagai berikut:` : `Telah mengembalikan seluruh alat/bahan pinjaman dengan kondisi baik dan dinyatakan BEBAS TANGGUNGAN administrasi maupun barang dari laboratorium, dengan rincian riwayat pinjaman:`;
+                        
+                        const splitText = doc.splitTextToSize(textIsi, 170); doc.text(splitText, 20, 117);
+                        
+                        const tableData = parseJSONSafe(loan.Item_JSON).map((item, index) => [index+1, item.nama, item.qty]);
+                        doc.autoTable({ startY: 122 + (splitText.length * 5), head: [['No', 'Nama Barang', 'Jumlah']], body: tableData, theme: 'grid', headStyles: { fillColor: [79, 70, 229] }, margin: { left: 20, right: 20 } });
+                        
+                        const finalY = doc.lastAutoTable.finalY + 15; const sigCenterX = 158; 
+                        doc.text("Mengetahui,", sigCenterX, finalY, { align: "center" }); doc.text("Kepala Laboratorium,", sigCenterX, finalY + 6, { align: "center" });
+                        
+                        // QR CODE
+                        try {
+                            const qrDataStr = `Digital Sign\nName: ${set.head_name||'-'}\nDate: ${today}\nTrx: ${loan.ID_Pinjam}`;
+                            const qrDataUrl = await QRCode.toDataURL(qrDataStr, { errorCorrectionLevel: 'M', margin: 1, width: 120 });
+                            doc.addImage(qrDataUrl, 'PNG', 145, finalY + 8, 26, 26);
+                        } catch (err) {}
+                        
+                        doc.setFont("helvetica", "bold"); doc.text(set.head_name || "Nama Kepala Belum Diset", sigCenterX, finalY + 42, { align: "center" });
+                        doc.setFont("helvetica", "normal"); doc.text(`NIP. ${set.head_nip || "-"}`, sigCenterX, finalY + 47, { align: "center" });
+                        
+                        doc.save(`S_${type}_${loan.ID_Pinjam}.pdf`);
+                    } catch (e) { Swal.fire('Error', 'Gagal cetak PDF.', 'error'); } finally { isLoading.value = false; }
+                };
+
+                // --- SCANNER KAMERA POS & AUTO-FILL ---
+                const openScannerModal = () => {
+                    modals.value.scanner = true;
+                    setTimeout(() => {
+                        try {
+                            if (html5QrcodeScanner) html5QrcodeScanner.clear();
+                            html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: {width: 250, height: 250} }, false);
+                            html5QrcodeScanner.render((decodedText) => { closeScannerModal(); barcodeInput.value = decodedText; handleBarcodeScan(); }, () => {});
+                        } catch (e) { showScannerModal.value = false; }
+                    }, 200);
+                };
+                const closeScannerModal = () => { if (html5QrcodeScanner) { try { html5QrcodeScanner.clear(); } catch(e) {} html5QrcodeScanner = null; } modals.value.scanner = false; };
                 
-                // Scanner & PDF...
-                // (Scanner logic dipertahankan utuh dari versi sebelumnya, tapi disederhanakan visual codenya)
-                const handleBarcodeScan = () => {}; const openScannerModal = () => {}; const cetakSurat = () => {}; const viewLoanDetails = () => {}; const promptResetPassword = () => {}; const saveSettingsData = () => {};
+                const handleBarcodeScan = async () => {
+                    const code = barcodeInput.value.trim(); if (!code) return;
+                    const exist = inventory.value.find(i => String(i.ID_Barang) === code);
+                    if (exist) {
+                        if (user.value.role === 'superadmin') { promptEditItem(exist); } 
+                        else { addToCart(exist); showCart.value = true; }
+                    } else {
+                        if (user.value.role === 'superadmin') {
+                            Swal.fire({ title: 'Mencari Data Global...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); } });
+                            let fetchedName = '';
+                            try {
+                                let res = await fetch(`https://world.openfoodfacts.org/api/v0/product/${code}.json`); let data = await res.json();
+                                if (data && data.status === 1) fetchedName = data.product.product_name;
+                                else {
+                                    res = await fetch(`https://api.upcitemdb.com/prod/trial/lookup?upc=${code}`); data = await res.json();
+                                    if (data && data.items && data.items.length > 0) fetchedName = data.items[0].title;
+                                }
+                            } catch (e) {}
+                            Swal.close();
+                            Swal.fire({
+                                title: 'Barang Baru', text: fetchedName ? `Ditemukan: ${fetchedName}\nTambahkan ke lab?` : `Barcode ${code} belum ada.\nTambahkan manual?`,
+                                showCancelButton: true, confirmButtonText: 'Ya, Tambahkan'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    newItemForm.value.idBarang = code; if(fetchedName) newItemForm.value.namaBarang = fetchedName;
+                                    showAddModal.value = true;
+                                }
+                            });
+                        } else { Swal.fire('Tidak Ditemukan', `Barcode ${code} tidak terdaftar di sistem Lab.`, 'warning'); }
+                    }
+                    barcodeInput.value = '';
+                };
 
                 onMounted(() => { if (user.value) fetchData(); });
 
@@ -983,12 +1114,12 @@
                     isLoading, user, isLoginMode, currentTab, showMobileMenu, changeTab, authForm, loanForm, settings, submitAuth, logout,
                     inventory, filteredInventory, searchQuery, filterCategory, cart, showCart, addToCart, updateCartQty, removeFromCart, submitLoan, todayDate,
                     loans, overdueLoans: computed(()=>[]), formatDate, getStatusBadge, viewLoanDetails, usersList, promptResetPassword, saveSettingsData, cetakSurat,
-                    barcodeInput, handleBarcodeScan, showAddModal, isEditMode, newItemForm, submitNewItem, promptEditItem, deleteItem, openScannerModal,
-                    // ERP NEW
+                    barcodeInput, handleBarcodeScan, showAddModal, isEditMode, newItemForm, submitNewItem, promptEditItem, deleteItem, openScannerModal, closeScannerModal,
                     stats, suppliers, inbounds, outbounds, modals, supForm, inoutForm, openSupplierModal, saveSupplier, deleteSupplier,
                     openInboundModal, saveInbound, openOutboundModal, saveOutbound, getSupplierName, getInventoryName,
                     reportType, reportStart, reportEnd, filteredReportData, printArea, generateReportPDF, parseJSONSafe,
-                    showPasswordModal, pwdForm, changeMyPassword
+                    showPasswordModal, pwdForm, changeMyPassword,
+                    wishlists, myWishlists, wishForm, openWishlistModal, saveWishlist, updateWishlist
                 };
             }
         });
