@@ -1043,7 +1043,7 @@
                     const exist = inventory.value.find(i => String(i.ID_Barang) === code);
                     
                     if (exist) {
-                        if (user.value.role === 'superadmin') {
+                        if (user.role === 'superadmin') {
                             // Mode Admin: Tawarkan tambah/kurang stok jika barang sudah ada
                             promptEditStock(exist);
                         } else {
@@ -1052,21 +1052,29 @@
                             showCart.value = true; // Langsung buka halaman keranjang!
                         }
                     } else {
-                        if (user.value.role === 'superadmin') {
-                            // Mode Admin (Barang Baru): Lacak Nama Barang ke Internet Global via UPCItemDB API
+                        if (user.role === 'superadmin') {
+                            // Mode Admin (Barang Baru): Lacak Nama Barang ke Internet Global via API
                             Swal.fire({
                                 title: 'Mencari Data Global...',
-                                text: 'Menghubungkan ke database barcode...',
+                                text: 'Menghubungkan ke database barcode internet...',
                                 allowOutsideClick: false,
                                 didOpen: () => { Swal.showLoading(); }
                             });
 
                             let fetchedName = '';
                             try {
-                                const response = await fetch(`https://api.upcitemdb.com/prod/trial/lookup?upc=${code}`);
-                                const data = await response.json();
-                                if (data && data.items && data.items.length > 0) {
-                                    fetchedName = data.items[0].title;
+                                // Coba API 1: Open Food Facts (Bagus untuk produk ritel/snack/bahan lokal Indonesia)
+                                let response = await fetch(`https://world.openfoodfacts.org/api/v0/product/${code}.json`);
+                                let data = await response.json();
+                                if (data && data.status === 1 && data.product && data.product.product_name) {
+                                    fetchedName = data.product.product_name;
+                                } else {
+                                    // Coba API 2: UPCItemDB (Bagus untuk produk umum/internasional)
+                                    response = await fetch(`https://api.upcitemdb.com/prod/trial/lookup?upc=${code}`);
+                                    data = await response.json();
+                                    if (data && data.items && data.items.length > 0) {
+                                        fetchedName = data.items[0].title;
+                                    }
                                 }
                             } catch (e) {
                                 console.warn("Lookup API gagal", e);
@@ -1076,8 +1084,8 @@
                             Swal.fire({
                                 title: 'Barang Baru',
                                 text: fetchedName 
-                                    ? `Ditemukan: ${fetchedName}\nIngin menambahkannya ke lab?`
-                                    : `Barcode ${code} belum ada di Database. Ingin menambahkannya?`,
+                                    ? `Ditemukan: ${fetchedName}\nIngin menambahkannya ke inventaris lab?`
+                                    : `Barcode ${code} belum ada di Database Lab maupun Global.\nIngin menambahkannya secara manual?`,
                                 icon: 'question',
                                 showCancelButton: true,
                                 confirmButtonText: '<i class="fas fa-plus mr-1"></i> Ya, Tambahkan',
@@ -1086,7 +1094,7 @@
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     newItemForm.value.idBarang = code; 
-                                    // AUTO-FILL NAMA BARANG DARI INTERNET!
+                                    // AUTO-FILL NAMA BARANG JIKA KETEMU DI INTERNET
                                     if(fetchedName) newItemForm.value.namaBarang = fetchedName;
                                     showAddModal.value = true;
                                 }
