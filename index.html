@@ -14,7 +14,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- LIBRARIES: Vue, Swal, Excel, PDF, QR Code, HTML5-QRCode Scanner -->
+    <!-- LIBRARIES -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
@@ -28,7 +28,7 @@
             theme: {
                 extend: {
                     fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    colors: { primary: '#059669', secondary: '#ffffff' } /* Tema Emerald & White */
+                    colors: { primary: '#059669', secondary: '#ffffff' }
                 }
             }
         }
@@ -42,7 +42,6 @@
         .animate-slide-in { animation: slideIn 0.3s ease-out forwards; }
         [v-cloak] { display: none; }
         
-        /* Modern Scrollbar */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #f8fafc; border-radius: 4px; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
@@ -51,7 +50,6 @@
         .custom-scroll::-webkit-scrollbar { width: 4px; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 4px; }
         
-        /* Kustomisasi Scanner html5-qrcode */
         #reader { width: 100%; max-width: 500px; margin: 0 auto; border-radius: 16px; overflow: hidden; border: none !important; }
         #reader__dashboard_section_csr button { background-color: #059669; color: white; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: bold; margin: 5px; }
 
@@ -72,9 +70,8 @@
             <p class="text-emerald-700 font-bold animate-pulse tracking-wide">Memproses Data...</p>
         </div>
 
-        <!-- HALAMAN AUTH (LOGIN UI BARU) -->
+        <!-- HALAMAN AUTH -->
         <div v-if="!user" class="min-h-screen flex items-center justify-center bg-slate-50 p-4 relative overflow-hidden">
-            <!-- Elemen Dekorasi Latar Belakang -->
             <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-emerald-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
             <div class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-teal-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
 
@@ -91,25 +88,25 @@
                 <form @submit.prevent="submitAuth" class="space-y-5">
                     <div v-if="!isLoginMode">
                         <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wide">Nama Lengkap</label>
-                        <input v-model="authForm.nama" type="text" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all outline-none text-slate-700 font-medium">
+                        <input v-model="authForm.nama" type="text" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wide">Email</label>
-                        <input v-model="authForm.email" type="email" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all outline-none text-slate-700 font-medium">
+                        <input v-model="authForm.email" type="email" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wide">Password</label>
-                        <input v-model="authForm.password" type="password" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all outline-none text-slate-700 font-medium">
+                        <input v-model="authForm.password" type="password" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none">
                     </div>
                     <div v-if="!isLoginMode">
                         <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wide">Peran Akses</label>
-                        <select v-model="authForm.role" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all outline-none appearance-none text-slate-700 font-medium">
+                        <select v-model="authForm.role" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none appearance-none">
                             <option value="mahasiswa">Mahasiswa</option>
                             <option value="dosen">Dosen</option>
-                            <option value="superadmin">Superadmin (Demo)</option>
+                            <option value="superadmin">Superadmin</option>
                         </select>
                     </div>
-                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-xl transition-all duration-300 shadow-[0_4px_14px_0_rgba(5,150,105,0.39)] hover:shadow-[0_6px_20px_rgba(5,150,105,0.23)] hover:-translate-y-0.5">
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-xl transition-all duration-300 shadow-[0_4px_14px_0_rgba(5,150,105,0.39)] hover:-translate-y-0.5">
                         {{ isLoginMode ? 'Masuk ke Sistem' : 'Daftar Sekarang' }}
                     </button>
                 </form>
@@ -128,7 +125,7 @@
         <!-- MAIN APP -->
         <div v-else class="flex flex-1 overflow-hidden bg-slate-50">
             
-            <!-- DESKTOP & MOBILE SIDEBAR -->
+            <!-- MOBILE SIDEBAR -->
             <div v-if="showMobileMenu" class="md:hidden fixed inset-0 z-[100] flex">
                 <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm" @click="showMobileMenu = false"></div>
                 <aside class="relative w-72 max-w-sm bg-white text-slate-600 border-r border-slate-200 flex flex-col shadow-2xl h-full animate-slide-in overflow-hidden z-10">
@@ -136,14 +133,12 @@
                 </aside>
             </div>
 
+            <!-- DESKTOP SIDEBAR -->
             <aside class="w-72 bg-white text-slate-600 border-r border-slate-200 flex flex-col hidden md:flex transition-all duration-300 z-20 shadow-sm relative">
                 <sidebar-content :user="user" :settings="settings" :current-tab="currentTab" @change-tab="changeTab" @logout="logout" @open-pwd="showPasswordModal = true"></sidebar-content>
             </aside>
 
-            <!-- MAIN CONTENT -->
             <main class="flex-1 flex flex-col overflow-hidden relative">
-                
-                <!-- MOBILE HEADER -->
                 <header class="md:hidden bg-white shadow-sm p-4 flex justify-between items-center z-10 border-b border-slate-200">
                     <div class="flex items-center gap-3">
                         <div class="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-100">
@@ -161,7 +156,6 @@
                     
                     <!-- ================= DASHBOARD ================= -->
                     <div v-if="currentTab === 'dashboard'" class="space-y-6 animate-fade-in">
-                        <!-- Dashboard Header -->
                         <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 relative overflow-hidden flex items-center justify-between">
                             <div class="relative z-10">
                                 <h2 class="text-3xl font-extrabold text-slate-800 mb-2">Selamat Datang, {{ user.nama }}! 👋</h2>
@@ -170,7 +164,6 @@
                             <div class="absolute right-0 top-0 w-64 h-64 bg-emerald-50 rounded-bl-full opacity-50 -z-10"></div>
                         </div>
                         
-                        <!-- STATS ADMIN -->
                         <div v-if="user.role === 'superadmin'" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
                             <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 hover:border-emerald-200 transition-colors">
                                 <div class="flex items-center gap-3 mb-3 text-emerald-600"><i class="fas fa-boxes bg-emerald-50 p-3 rounded-xl"></i> <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Model Barang</p></div>
@@ -205,8 +198,6 @@
                                 <p class="text-3xl font-extrabold text-slate-800">{{ wishlists.length }}</p>
                             </div>
                         </div>
-
-                        <!-- STATS USER (MAHASISWA/DOSEN) -->
                         <div v-else class="grid grid-cols-1 md:grid-cols-4 gap-6">
                             <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 flex flex-col hover:-translate-y-1 hover:shadow-md transition-all">
                                 <div class="flex items-center gap-4 mb-4">
@@ -496,7 +487,6 @@
                                 </thead>
                                 <tbody class="divide-y divide-slate-100">
                                     <tr v-for="row in filteredReportData" :key="row.id" class="hover:bg-slate-50">
-                                        <!-- Inbound Rows -->
                                         <template v-if="reportType === 'inbound'">
                                             <td class="p-3">{{ formatDate(row.Tanggal) }}</td>
                                             <td class="p-3 font-mono text-slate-500">{{ row.ID_Barang }}</td>
@@ -505,7 +495,6 @@
                                             <td class="p-3 font-bold">{{ row.Qty }}</td>
                                             <td class="p-3">{{ row.Keterangan }}</td>
                                         </template>
-                                        <!-- Outbound Rows -->
                                         <template v-else-if="reportType === 'outbound'">
                                             <td class="p-3">{{ formatDate(row.Tanggal) }}</td>
                                             <td class="p-3 font-mono text-slate-500">{{ row.ID_Barang }}</td>
@@ -513,7 +502,6 @@
                                             <td class="p-3 font-bold">{{ row.Qty }}</td>
                                             <td class="p-3">{{ row.Keterangan }}</td>
                                         </template>
-                                        <!-- Loan Rows -->
                                         <template v-else>
                                             <td class="p-3">{{ formatDate(row.Tanggal_Pinjam) }}</td>
                                             <td class="p-3 font-bold">{{ row.Nama_Peminjam }}</td>
@@ -732,10 +720,9 @@
 
     </div>
 
-    <!-- KOMPONEN SIDEBAR (Desain Putih Modern) -->
+    <!-- KOMPONEN SIDEBAR -->
     <script type="text/x-template" id="sidebar-template">
         <div class="flex flex-col h-full bg-white text-slate-600">
-            <!-- Header Sidebar -->
             <div class="p-6 flex items-center justify-between border-b border-slate-100 bg-white">
                 <div class="flex items-center gap-3">
                     <div class="w-9 h-9 bg-emerald-50 rounded-xl border border-emerald-100 flex items-center justify-center text-emerald-600 shadow-sm">
@@ -747,7 +734,6 @@
                 <button @click="$emit('close')" class="md:hidden text-slate-400 hover:text-slate-600"><i class="fas fa-times text-xl"></i></button>
             </div>
             
-            <!-- Profil User -->
             <div class="p-5 border-b border-slate-100 bg-white">
                 <div class="flex items-center gap-3 bg-slate-50 p-3 rounded-2xl border border-slate-100">
                     <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-lg shadow-inner">{{ user.nama.charAt(0) }}</div>
@@ -759,7 +745,6 @@
                 </div>
             </div>
 
-            <!-- Navigasi -->
             <nav class="flex-1 px-4 space-y-1.5 mt-5 overflow-y-auto pb-4 custom-scroll">
                 <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-2 mb-3">Utama</p>
                 <a @click="$emit('change-tab', 'dashboard')" :class="['flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer text-sm font-medium transition-all', currentTab==='dashboard'?'bg-emerald-50 text-emerald-600 font-bold border border-emerald-100/50 shadow-sm':'text-slate-500 hover:bg-slate-50 hover:text-emerald-600']"><i class="fas fa-chart-pie w-5 text-center"></i> Dashboard</a>
@@ -785,11 +770,11 @@
         </div>
     </script>
 
-    <!-- SCRIPT (Tidak ada perubahan fungsi, semua fitur ERP berjalan 100% seperti sebelumnya) -->
     <script>
         const { createApp, ref, computed, onMounted } = Vue;
 
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbwPnogFmzXEI68eSMFMnaYnWkkyGuaZsQBLh7O7TCIKjUaIZ1rcg9WS80kVr2aPfZI1XA/exec"; 
+        // --- PASTE URL WEB APP GOOGLE APPS SCRIPT ANDA DI SINI ---
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz/exec"; 
 
         const app = createApp({
             setup() {
@@ -805,16 +790,14 @@
                 const pwdForm = ref({ old: '', new: '' });
                 const settings = ref({ kementerian: '', univ_name: '', faculty_name: '', address: '', contact: '', email: '', website: '', logo_url: '', head_name: '', head_nip: '' });
                 
-                // CORE Data 
+                // CORE Data (TERHUBUNG KE BACKEND)
                 const inventory = ref([]);
                 const loans = ref([]);
                 const usersList = ref([]);
-                
-                // ERP Data & Wishlist (Mocking local memory until GAS updated)
                 const suppliers = ref([]);
                 const inbounds = ref([]);
                 const outbounds = ref([]);
-                const wishlists = ref([]); // Data usulan barang
+                const wishlists = ref([]); 
 
                 // Forms & Modals
                 const barcodeInput = ref('');
@@ -832,7 +815,6 @@
                 const wishForm = ref({ itemName: '', category: 'Alat', qty: 1, purpose: '' });
                 let html5QrcodeScanner = null;
 
-                // Reports Filter
                 const reportType = ref('inbound');
                 const reportStart = ref('');
                 const reportEnd = ref('');
@@ -877,29 +859,55 @@
                     });
                 });
 
-                // MAIN API HANDLER
+                // ==========================================
+                // MAIN API HANDLER (STRICT TO BACKEND)
+                // ==========================================
                 const apiCall = async (action, payload = {}) => {
                     isLoading.value = true;
                     try {
-                        const response = await fetch(GAS_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action, payload }) });
-                        const resJSON = JSON.parse(await response.text());
-                        return resJSON.message === "Action not found" ? { success: true, isMock: true, data: [] } : resJSON;
+                        const response = await fetch(GAS_URL, { 
+                            method: 'POST', 
+                            headers: { 'Content-Type': 'text/plain;charset=utf-8' }, 
+                            body: JSON.stringify({ action, payload }) 
+                        });
+                        const resText = await response.text();
+                        try {
+                            const resJSON = JSON.parse(resText);
+                            if(!resJSON.success) {
+                                Swal.fire('Error Database', resJSON.message, 'error');
+                            }
+                            return resJSON;
+                        } catch(e) {
+                            console.error("Format Response Server Salah:", resText);
+                            Swal.fire('Error Koneksi', 'URL Backend Google Apps Script salah atau belum dipublish.', 'error');
+                            return { success: false, message: "Server Error Format" };
+                        }
                     } catch (error) {
+                        Swal.fire('Koneksi Gagal', 'Pastikan Anda terhubung ke internet.', 'error');
                         return { success: false, message: "Koneksi Terputus" };
-                    } finally { isLoading.value = false; }
+                    } finally { 
+                        isLoading.value = false; 
+                    }
                 };
 
                 const fetchData = async () => {
                     if (!user.value) return;
-                    // Load Settings
-                    apiCall('getSettings').then(r => { if(r.success && !r.isMock) settings.value = { ...settings.value, ...r.data }; });
                     
-                    let p1 = apiCall('getInventory').then(r => r.success && !r.isMock ? inventory.value = r.data : null);
-                    let p2 = apiCall('getLoans', { userId: user.value.id, role: user.value.role }).then(r => r.success && !r.isMock ? loans.value = r.data : null);
+                    // Paralel fetching untuk kecepatan
+                    apiCall('getSettings').then(r => { if(r.success) settings.value = { ...settings.value, ...r.data }; });
+                    let p1 = apiCall('getInventory').then(r => { if(r.success) inventory.value = r.data; });
+                    let p2 = apiCall('getLoans', { userId: user.value.id, role: user.value.role }).then(r => { if(r.success) loans.value = r.data; });
+                    let p3 = apiCall('getWishlists').then(r => { if(r.success) wishlists.value = r.data; });
+
                     if (user.value.role === 'superadmin') {
-                        let p3 = apiCall('getUsers').then(r => r.success && !r.isMock ? usersList.value = r.data : null);
-                        await Promise.all([p1, p2, p3]);
-                    } else { await Promise.all([p1, p2]); }
+                        let p4 = apiCall('getUsers').then(r => { if(r.success) usersList.value = r.data; });
+                        let p5 = apiCall('getSuppliers').then(r => { if(r.success) suppliers.value = r.data; });
+                        let p6 = apiCall('getInbounds').then(r => { if(r.success) inbounds.value = r.data; });
+                        let p7 = apiCall('getOutbounds').then(r => { if(r.success) outbounds.value = r.data; });
+                        await Promise.all([p1, p2, p3, p4, p5, p6, p7]);
+                    } else { 
+                        await Promise.all([p1, p2, p3]); 
+                    }
                 };
 
                 // Auth
@@ -910,24 +918,34 @@
                             user.value = res.user; localStorage.setItem('labUser', JSON.stringify(res.user));
                             fetchData();
                         } else { Swal.fire('Berhasil', res.message, 'success'); isLoginMode.value = true; }
-                    } else Swal.fire('Gagal', res.message, 'error');
+                    }
                 };
                 const logout = () => { user.value = null; localStorage.removeItem('labUser'); };
                 const changeTab = (tab) => { currentTab.value = tab; showMobileMenu.value = false; document.getElementById('mainScrollArea').scrollTo(0,0); };
 
-                // ERP FUNCTIONS (Supplier, Inbound, Outbound Local State Management)
+                // ERP FUNCTIONS (Supplier, Inbound, Outbound)
                 const getSupplierName = (id) => { const s = suppliers.value.find(x => x.ID_Supplier === id); return s ? s.Nama_Supplier : id; };
                 const getInventoryName = (id) => { const i = inventory.value.find(x => x.ID_Barang === id); return i ? i.Nama_Barang : id; };
+                
                 const openSupplierModal = (sup = null) => { if(sup) supForm.value = {...sup}; else supForm.value = { ID_Supplier: 'SUP-'+new Date().getTime(), Nama_Supplier: '', Kontak: '', Alamat: '' }; modals.value.supplier = true; };
-                const saveSupplier = () => { const idx = suppliers.value.findIndex(s => s.ID_Supplier === supForm.value.ID_Supplier); if(idx > -1) suppliers.value[idx] = {...supForm.value}; else suppliers.value.push({...supForm.value}); modals.value.supplier = false; Swal.fire({toast:true, position:'top-end', icon:'success', title:'Supplier Disimpan', showConfirmButton:false, timer:1500}); };
-                const deleteSupplier = (id) => { suppliers.value = suppliers.value.filter(s => s.ID_Supplier !== id); };
+                const saveSupplier = async () => { 
+                    const res = await apiCall('addSupplier', supForm.value);
+                    if(res.success) { modals.value.supplier = false; Swal.fire({toast:true, position:'top-end', icon:'success', title:'Supplier Disimpan', showConfirmButton:false, timer:1500}); fetchData(); }
+                };
+                const deleteSupplier = async (id) => { 
+                    Swal.fire({title:'Hapus Supplier?', icon:'warning', showCancelButton:true}).then(async (r)=>{
+                        if(r.isConfirmed) { const res = await apiCall('deleteSupplier', { id }); if(res.success) fetchData(); }
+                    });
+                };
 
                 const openInboundModal = () => { inoutForm.value = { ID_Supplier: '', ID_Barang: '', Qty: '', Keterangan: '' }; modals.value.inbound = true; };
                 const saveInbound = async () => {
                     if(!inoutForm.value.ID_Barang || !inoutForm.value.Qty) return;
-                    inbounds.value.push({ ID: 'INB-'+new Date().getTime(), Tanggal: new Date().toISOString(), ...inoutForm.value });
-                    await apiCall('updateStock', { id: inoutForm.value.ID_Barang, amount: parseInt(inoutForm.value.Qty) }); fetchData();
-                    modals.value.inbound = false; Swal.fire('Berhasil', 'Barang masuk tercatat.', 'success');
+                    const res = await apiCall('addInbound', inoutForm.value);
+                    if(res.success) {
+                        await apiCall('updateStock', { id: inoutForm.value.ID_Barang, amount: parseInt(inoutForm.value.Qty) }); 
+                        fetchData(); modals.value.inbound = false; Swal.fire('Berhasil', 'Barang masuk tercatat, stok ditambah.', 'success');
+                    }
                 };
 
                 const openOutboundModal = () => { inoutForm.value = { ID_Supplier: '-', ID_Barang: '', Qty: '', Keterangan: '' }; modals.value.outbound = true; };
@@ -935,28 +953,30 @@
                     if(!inoutForm.value.ID_Barang || !inoutForm.value.Qty) return;
                     const item = inventory.value.find(i => i.ID_Barang === inoutForm.value.ID_Barang);
                     if(!item || item.Jumlah_Tersedia < inoutForm.value.Qty) return Swal.fire('Gagal', 'Stok fisik tidak mencukupi.', 'error');
-                    outbounds.value.push({ ID: 'OUT-'+new Date().getTime(), Tanggal: new Date().toISOString(), ...inoutForm.value });
-                    await apiCall('updateStock', { id: inoutForm.value.ID_Barang, amount: -parseInt(inoutForm.value.Qty) }); fetchData();
-                    modals.value.outbound = false; Swal.fire('Berhasil', 'Barang keluar tercatat.', 'success');
+                    
+                    const res = await apiCall('addOutbound', inoutForm.value);
+                    if(res.success) {
+                        await apiCall('updateStock', { id: inoutForm.value.ID_Barang, amount: -parseInt(inoutForm.value.Qty) }); 
+                        fetchData(); modals.value.outbound = false; Swal.fire('Berhasil', 'Barang keluar tercatat, stok dikurangi.', 'success');
+                    }
                 };
 
                 // WISHLIST (USULAN BARANG)
                 const openWishlistModal = () => { wishForm.value = { itemName: '', category: 'Alat', qty: 1, purpose: '' }; modals.value.wishlist = true; };
-                const saveWishlist = () => {
+                const saveWishlist = async () => {
                     if(!wishForm.value.itemName) return;
-                    wishlists.value.push({ id: 'WSH-'+new Date().getTime(), userId: user.value.id, userName: user.value.nama, date: new Date().toISOString(), status: 'pending', ...wishForm.value });
-                    modals.value.wishlist = false;
-                    Swal.fire('Terkirim!', 'Usulan barang berhasil diajukan ke admin.', 'success');
+                    const res = await apiCall('addWishlist', { userId: user.value.id, userName: user.value.nama, ...wishForm.value });
+                    if(res.success) { modals.value.wishlist = false; Swal.fire('Terkirim!', 'Usulan barang diajukan ke admin.', 'success'); fetchData(); }
                 };
-                const updateWishlist = (id, newStatus) => {
-                    const w = wishlists.value.find(x => x.id === id);
-                    if(w) { w.status = newStatus; Swal.fire({toast:true, position:'top-end', icon:'success', title:'Status Diperbarui', showConfirmButton:false, timer:1500}); }
+                const updateWishlist = async (id, newStatus) => {
+                    const res = await apiCall('updateWishlist', { id, status: newStatus });
+                    if(res.success) { Swal.fire({toast:true, position:'top-end', icon:'success', title:'Status Diperbarui', showConfirmButton:false, timer:1500}); fetchData(); }
                 };
 
                 // CRUD Barang Detail
                 const promptEditItem = (item) => { newItemForm.value = { idBarang: item.ID_Barang, namaBarang: item.Nama_Barang, kategori: item.Kategori, jumlah: item.Jumlah_Total, kondisi: item.Kondisi, lokasi: item.Lokasi }; isEditMode.value = true; showAddModal.value = true; };
-                const submitNewItem = async () => { const res = await apiCall('addSingleInventory', newItemForm.value); if(res.success) { showAddModal.value = false; isEditMode.value = false; fetchData(); } };
-                const deleteItem = (item) => { Swal.fire({title:'Hapus Barang?', text:'Data akan dihapus permanen', icon:'warning', showCancelButton:true}).then((res)=>{ if(res.isConfirmed) { inventory.value = inventory.value.filter(i => i.ID_Barang !== item.ID_Barang); Swal.fire('Terhapus', '', 'success'); } }); };
+                const submitNewItem = async () => { const res = await apiCall('addSingleInventory', newItemForm.value); if(res.success) { showAddModal.value = false; isEditMode.value = false; fetchData(); Swal.fire({toast:true, position:'top-end', icon:'success', title:'Barang Tersimpan', showConfirmButton:false, timer:1500});} };
+                const deleteItem = async (item) => { Swal.fire({title:'Hapus Barang?', text:'Data dihapus permanen', icon:'warning', showCancelButton:true}).then(async (r)=>{ if(r.isConfirmed) { const res = await apiCall('deleteInventory', { id: item.ID_Barang }); if(res.success){ fetchData(); Swal.fire('Terhapus', '', 'success'); } } }); };
 
                 // Settings Kop Surat
                 const saveSettingsData = async () => {
@@ -981,12 +1001,12 @@
                 // Ganti Password Pribadi
                 const changeMyPassword = async () => {
                     const res = await apiCall('login', { email: user.value.email, password: pwdForm.value.old });
-                    if(!res.success) return Swal.fire('Gagal', 'Password Lama Salah', 'error');
+                    if(!res.success) return; 
                     const res2 = await apiCall('resetPassword', { userId: user.value.id, newPassword: pwdForm.value.new });
                     if(res2.success) { Swal.fire('Berhasil', 'Password telah diganti', 'success'); showPasswordModal.value = false; pwdForm.value = {old:'', new:''}; }
                 };
 
-                // --- FUNGSI STANDAR TRANSAKSI ---
+                // FUNGSI STANDAR TRANSAKSI 
                 const addToCart = (item) => { const exist = cart.value.find(i => i.ID_Barang === item.ID_Barang); if (exist) { if (exist.qty < item.Jumlah_Tersedia) exist.qty++; } else { cart.value.push({ ...item, qty: 1 }); } Swal.fire({ toast: true, position: 'bottom-end', icon: 'success', title: 'Masuk keranjang', showConfirmButton: false, timer: 1000 }); };
                 const updateCartQty = (index, change) => { const item = cart.value[index]; const invItem = inventory.value.find(i => i.ID_Barang === item.ID_Barang); const newQty = item.qty + change; if (newQty > 0 && newQty <= invItem.Jumlah_Tersedia) item.qty = newQty; };
                 const removeFromCart = (index) => cart.value.splice(index, 1);
@@ -1018,13 +1038,12 @@
                 const getStatusBadge = (status) => { const map = { 'menunggu_persetujuan': 'bg-amber-50 text-amber-600 px-3 py-1 rounded-md text-[10px] border border-amber-200', 'dipinjam': 'bg-emerald-50 text-emerald-600 px-3 py-1 rounded-md text-[10px] border border-emerald-200', 'dikembalikan': 'bg-teal-50 text-teal-600 px-3 py-1 rounded-md text-[10px] border border-teal-200'}; return map[status] || 'bg-slate-50 text-slate-600 px-3 py-1 rounded-md text-[10px] border border-slate-200'; };
                 const promptResetPassword = (u) => { Swal.fire({ title: `Reset Sandi ${u.Nama}`, input: 'text', inputLabel: 'Password Baru', showCancelButton: true }).then(async (res) => { if (res.isConfirmed) { await apiCall('resetPassword', { userId: u.ID, newPassword: res.value }); Swal.fire('Berhasil','','success'); } }); };
 
-                // --- CETAK SURAT PDF LENGKAP (KOP SURAT + QR) ---
+                // CETAK SURAT PDF LENGKAP (KOP SURAT + QR)
                 const cetakSurat = async (type, loan) => {
                     isLoading.value = true;
                     try {
                         const { jsPDF } = window.jspdf; const doc = new jsPDF(); const set = settings.value;
                         
-                        // KOP SURAT
                         doc.setFont("helvetica", "normal"); doc.setFontSize(11);
                         doc.text((set.kementerian || "KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI").toUpperCase(), 115, 20, { align: "center" });
                         doc.setFont("helvetica", "bold"); doc.setFontSize(15);
@@ -1045,7 +1064,6 @@
                         }
                         doc.setLineWidth(1.0); doc.line(15, 48, 195, 48); doc.setLineWidth(0.3); doc.line(15, 49.5, 195, 49.5);
                         
-                        // ISI SURAT
                         doc.setFont("helvetica", "normal"); doc.setFontSize(11);
                         const today = new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
                         doc.text(`Tanggal : ${today}`, 150, 58);
@@ -1071,7 +1089,6 @@
                         const finalY = doc.lastAutoTable.finalY + 15; const sigCenterX = 158; 
                         doc.text("Mengetahui,", sigCenterX, finalY, { align: "center" }); doc.text("Kepala Laboratorium,", sigCenterX, finalY + 6, { align: "center" });
                         
-                        // QR CODE
                         try {
                             const qrDataStr = `Digital Sign\nName: ${set.head_name||'-'}\nDate: ${today}\nTrx: ${loan.ID_Pinjam}`;
                             const qrDataUrl = await QRCode.toDataURL(qrDataStr, { errorCorrectionLevel: 'M', margin: 1, width: 120 });
@@ -1085,7 +1102,7 @@
                     } catch (e) { Swal.fire('Error', 'Gagal cetak PDF.', 'error'); } finally { isLoading.value = false; }
                 };
 
-                // --- SCANNER KAMERA POS & AUTO-FILL ---
+                // SCANNER KAMERA
                 const openScannerModal = () => {
                     modals.value.scanner = true;
                     setTimeout(() => {
@@ -1093,7 +1110,7 @@
                             if (html5QrcodeScanner) html5QrcodeScanner.clear();
                             html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: {width: 250, height: 250} }, false);
                             html5QrcodeScanner.render((decodedText) => { closeScannerModal(); barcodeInput.value = decodedText; handleBarcodeScan(); }, () => {});
-                        } catch (e) { showScannerModal.value = false; }
+                        } catch (e) { modals.value.scanner = false; }
                     }, 200);
                 };
                 const closeScannerModal = () => { if (html5QrcodeScanner) { try { html5QrcodeScanner.clear(); } catch(e) {} html5QrcodeScanner = null; } modals.value.scanner = false; };
@@ -1136,7 +1153,7 @@
                 return {
                     isLoading, user, isLoginMode, currentTab, showMobileMenu, changeTab, authForm, loanForm, settings, submitAuth, logout,
                     inventory, filteredInventory, searchQuery, filterCategory, cart, showCart, addToCart, updateCartQty, removeFromCart, submitLoan, todayDate,
-                    loans, overdueLoans: computed(()=>[]), formatDate, getStatusBadge, viewLoanDetails, usersList, promptResetPassword, saveSettingsData, cetakSurat,
+                    loans, formatDate, getStatusBadge, viewLoanDetails, usersList, promptResetPassword, saveSettingsData, cetakSurat,
                     barcodeInput, handleBarcodeScan, showAddModal, isEditMode, newItemForm, submitNewItem, promptEditItem, deleteItem, openScannerModal, closeScannerModal,
                     stats, suppliers, inbounds, outbounds, modals, supForm, inoutForm, openSupplierModal, saveSupplier, deleteSupplier,
                     openInboundModal, saveInbound, openOutboundModal, saveOutbound, getSupplierName, getInventoryName,
